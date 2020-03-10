@@ -1,0 +1,46 @@
+on: push
+name: indivtasks
+
+jobs:
+  build:
+    runs-on: windows-2019
+    timeout-minutes: 5
+
+    name: Find and test Individual tasks
+
+    steps:
+    - name: Checkout the Lab repo
+      uses: actions/checkout@v2
+      with:
+        path: lab
+
+    - name: Checkout the grader-tools repo
+      uses: actions/checkout@v2
+      with:
+        repository: av-pavlov/grader-tools
+        ref: master
+        path: tools
+
+    - name: Checkout the tests repo
+      uses: actions/checkout@v2
+      with:
+        repository: av-pavlov/c04array-test
+        ref: master
+        path: tests
+
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x' 
+        architecture: 'x86' 
+
+    - name: Find and test the projects and commit results
+      run: |
+        cd %GITHUB_WORKSPACE%\lab
+        python %GITHUB_WORKSPACE%\tools\test_indiv.py
+        git config --global user.name 'ProgIVT Autograder'
+        git config --global user.email 'av-pavlov@users.noreply.github.com'
+        git commit -am "Automated report"
+        git push
+        python %GITHUB_WORKSPACE%\tools\return_status.py
+      shell: cmd
