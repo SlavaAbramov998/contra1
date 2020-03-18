@@ -28,7 +28,7 @@ int main() {
 	A[kf] = Al;
 	A[kl] = Af;
 	for (i=0; i<n; i++){
-		cout << A[i];
+		cout << A[i] << " ";
 	}
 }	
 
