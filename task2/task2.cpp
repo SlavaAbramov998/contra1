@@ -25,16 +25,10 @@ int main() {
 			kl = i;
 		}
 	}
-	for (i=0; i<n; i++){
-		if (i = kl) {
-			A[i] = Af;
-		}
-		if (i = kf) {
-			A[i] = Al;
-		}
-		break;
+	A[kf] = Al;
+	A[kl] = Af;
 	for (i=0; i<n; i++){
 		cout << A[i];
 	}
 }	
-}
+
